@@ -127,7 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Problema 1.cpp" />
     <ClCompile Include="Problema 12 si 13.cpp" />
+    <ClCompile Include="Problema 2.cpp" />
+    <ClCompile Include="Problema 3.cpp" />
+    <ClCompile Include="Problema 5 si 6.cpp" />
     <ClCompile Include="Problema 7.cpp" />
     <ClCompile Include="Problema 19.cpp" />
     <ClCompile Include="Problema 9.cpp" />
