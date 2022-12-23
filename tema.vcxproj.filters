@@ -30,5 +30,17 @@
     <ClCompile Include="Problema 12 si 13.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Problema 1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Problema 3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Problema 2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Problema 5 si 6.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
