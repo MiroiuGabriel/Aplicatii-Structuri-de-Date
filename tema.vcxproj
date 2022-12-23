@@ -134,6 +134,7 @@
     <ClCompile Include="Problema 5 si 6.cpp" />
     <ClCompile Include="Problema 7.cpp" />
     <ClCompile Include="Problema 19.cpp" />
+    <ClCompile Include="Problema 8 si 14.cpp" />
     <ClCompile Include="Problema 9.cpp" />
     <ClCompile Include="Problema 17 si 18.cpp" />
   </ItemGroup>

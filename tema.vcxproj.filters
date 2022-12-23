@@ -42,5 +42,8 @@
     <ClCompile Include="Problema 5 si 6.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Problema 8 si 14.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
