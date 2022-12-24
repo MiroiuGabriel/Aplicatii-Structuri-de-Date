@@ -1,3 +1,5 @@
+#include <iostream>
+
 struct ListNode {
     int value;
     ListNode* next;
@@ -10,7 +12,7 @@ void initiateArr(int* arr, int length) {
         std::cin >> arr[i];
 }
 
-void Swich(int*& firstArr, int*& secondArr, int& firstLength, int& secondLength) {
+void Switch(int*& firstArr, int*& secondArr, int& firstLength, int& secondLength) {
     int* temporal = firstArr;
     firstArr = secondArr;
     secondArr = temporal;
@@ -55,7 +57,7 @@ void Static() {
     initiateArr(secondArr, secondLength);
 
     if (secondLength > firstLength)
-        Swich(firstArr, secondArr, firstLength, secondLength);
+        Switch(firstArr, secondArr, firstLength, secondLength);
 
 
     std::cout << isIncludedStatic(firstArr, firstLength, secondArr, secondLength);
