@@ -128,13 +128,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Problema 1.cpp" />
+    <ClCompile Include="Problema 10.cpp" />
+    <ClCompile Include="Problema 11.cpp" />
     <ClCompile Include="Problema 12 si 13.cpp" />
+    <ClCompile Include="Problema 15.cpp" />
+    <ClCompile Include="Problema 16.cpp" />
     <ClCompile Include="Problema 2.cpp" />
     <ClCompile Include="Problema 3.cpp" />
+    <ClCompile Include="Problema 4.cpp" />
     <ClCompile Include="Problema 5 si 6.cpp" />
+    <ClCompile Include="Problema 5.cpp" />
+    <ClCompile Include="Problema 6.cpp" />
     <ClCompile Include="Problema 7.cpp" />
     <ClCompile Include="Problema 19.cpp" />
     <ClCompile Include="Problema 8 si 14.cpp" />
+    <ClCompile Include="Problema 8.cpp" />
     <ClCompile Include="Problema 9.cpp" />
     <ClCompile Include="Problema 17 si 18.cpp" />
     <ClCompile Include="Problema 15.cpp" />
