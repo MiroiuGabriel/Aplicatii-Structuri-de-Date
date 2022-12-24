@@ -7,59 +7,24 @@
 struct ListNode {
     int value;
     ListNode* next;
+    ListNode() : value(0) {};
+    ListNode(int x) : value(x) {}
 };
 
 struct NumberInformation {
     bool isPositive;
-    int length = 0;
     int value;
 };
 
-int lastDigit(int& number) {
-    return number % 10;
-}
-
-bool isLastDigit(int number) {
-    if (number / 10 == 0)
-        return true;
-
-    return false;
-}
-
-void createListNumber(ListNode* List, NumberInformation& Number) {
-    int number;
-    std::cout << "Insert Your number : ";
-    std::cin >> number;
-
-    Number.value = number;
-
-    while (number) {
-
-        if (isLastDigit(number)) {
-            if (number > 0)
-                Number.isPositive = true;
-            else
-                Number.isPositive = false;
-        }
-
-        List->next = new ListNode;
-        List->next->value = lastDigit(number);
-        List = List->next;
-
-        Number.length++;
-        number = number / 10;
-    }
-    List->next = nullptr;
-}
-
-void finishNumber(ListNode* Number, ListNode*& Head) {
-
+void finishNumber(ListNode* Number, ListNode*& Head, bool carry) {
     while (Number) {
         if (Number->value < 0)
             Number->value = abs(Number->value);
 
-        Head->next = new ListNode;
-        Head->next->value = Number->value;
+        if (Number->value > 0)
+            Head->next = new ListNode(Number->value - carry), carry = false;
+        else
+            Head->next = new ListNode(9);
         Head = Head->next;
 
         Number = Number->next;
@@ -75,51 +40,6 @@ void reverse(ListNode* prev, ListNode* node) {
 
 }
 
-ListNode* minusCase(ListNode* firstNumber, ListNode* secondNumber, bool isNegative) {
-    ListNode* resultHead = new ListNode;
-    ListNode* Head = resultHead;
-    while (firstNumber && secondNumber) {
-        Head->next = new ListNode;
-
-        if (firstNumber->value < 0)
-            firstNumber->value = abs(firstNumber->value);
-        if (secondNumber->value < 0)
-            secondNumber->value = abs(secondNumber->value);
-
-        Head->next->value = firstNumber->value + secondNumber->value;
-        Head = Head->next;
-
-        firstNumber = firstNumber->next;
-        secondNumber = secondNumber->next;
-    }
-
-    finishNumber(firstNumber, Head);
-    finishNumber(secondNumber, Head);
-    Head->next = nullptr;
-
-    reverse(nullptr, resultHead->next);
-    if (isNegative)
-        Head->value = Head->value * -1;
-
-    return Head;
-}
-
-void finishNumber(ListNode* Number, ListNode*& Head, bool carry) {
-    while (Number) {
-        if (Number->value < 0)
-            Number->value = abs(Number->value);
-
-        Head->next = new ListNode;
-        if (Number->value > 0)
-            Head->next->value = Number->value - carry, carry = false;
-        else
-            Head->next->value = 9;
-        Head = Head->next;
-
-        Number = Number->next;
-    }
-}
-
 void removeZeros(ListNode*& Head) {
     while (Head->next) {
         if (Head->value == 0)
@@ -129,6 +49,36 @@ void removeZeros(ListNode*& Head) {
     }
 }
 
+
+ListNode* additionCase(ListNode* firstNumber, ListNode* secondNumber, bool isNegative) {
+
+    ListNode* resultHead = new ListNode;
+    ListNode* Head = resultHead;
+
+    while (firstNumber && secondNumber) {
+
+        if (firstNumber->value < 0)
+            firstNumber->value = abs(firstNumber->value);
+        if (secondNumber->value < 0)
+            secondNumber->value = abs(secondNumber->value);
+
+        Head->next = new ListNode(firstNumber->value + secondNumber->value);
+        Head = Head->next;
+
+        firstNumber = firstNumber->next;
+        secondNumber = secondNumber->next;
+    }
+
+    finishNumber(firstNumber, Head, 0);
+    finishNumber(secondNumber, Head, 0);
+    Head->next = nullptr;
+
+    reverse(nullptr, resultHead->next);
+    if (isNegative)
+        Head->value = Head->value * -1;
+
+    return Head;
+}
 
 ListNode* differeneSign(ListNode* firstNumber, ListNode* secondNumber, bool isNegative) {
     ListNode* resultHead = new ListNode;
@@ -153,7 +103,7 @@ ListNode* differeneSign(ListNode* firstNumber, ListNode* secondNumber, bool isNe
         else {
 
             if (carry) {
-                if (firstNumber->value - 1 > secondNumber->value)
+                if (firstNumber->value - 1 >= secondNumber->value)
                     Head->next->value = (firstNumber->value - carry) - secondNumber->value, carry = false;
                 else
                     Head->next->value = 9 + firstNumber->value - secondNumber->value;
@@ -179,31 +129,56 @@ ListNode* differeneSign(ListNode* firstNumber, ListNode* secondNumber, bool isNe
     return Head;
 }
 
-ListNode* differenceBetween(ListNode* firstNumber, NumberInformation firstNumberInformation, ListNode* secondNumber, NumberInformation secondNumberInformation) {
+ListNode* calculateNumber(ListNode* firstNumber, NumberInformation firstNumberInformation, ListNode* secondNumber, NumberInformation secondNumberInformation) {
     ListNode* result = new ListNode;
 
-    if (firstNumberInformation.isPositive == false && secondNumberInformation.isPositive == true)
-        result = minusCase(firstNumber, secondNumber, true);
-    if (firstNumberInformation.isPositive == true && secondNumberInformation.isPositive == false)
-        result = minusCase(firstNumber, secondNumber, false);
 
-    if (firstNumberInformation.isPositive == false && secondNumberInformation.isPositive == false) {
+    if (firstNumberInformation.isPositive == false && secondNumberInformation.isPositive == true)
+        result = additionCase(firstNumber, secondNumber, true);
+
+    if (firstNumberInformation.isPositive == true && secondNumberInformation.isPositive == false)
+        result = additionCase(firstNumber, secondNumber, false);
+
+    if (firstNumberInformation.isPositive == false && secondNumberInformation.isPositive == false)
         if (firstNumberInformation.value > secondNumberInformation.value)
             result = differeneSign(secondNumber, firstNumber, false);
         else
             result = differeneSign(firstNumber, secondNumber, true);
-    }
 
-    if (firstNumberInformation.isPositive == true && secondNumberInformation.isPositive == true) {
+    if (firstNumberInformation.isPositive == true && secondNumberInformation.isPositive == true)
         if (firstNumberInformation.value > secondNumberInformation.value)
             result = differeneSign(firstNumber, secondNumber, false);
         else
             result = differeneSign(secondNumber, firstNumber, true);
-    }
 
 
     return result;
 }
+
+void createListNumber(ListNode* List, NumberInformation& Number) {
+    int number;
+    std::cout << "Insert Your number : ";
+    std::cin >> number;
+
+    Number.value = number;
+
+    while (number) {
+
+        if (number / 10 == 0) {
+            if (number > 0)
+                Number.isPositive = true;
+            else
+                Number.isPositive = false;
+        }
+
+        List->next = new ListNode(number % 10);
+        List = List->next;
+
+        number = number / 10;
+    }
+    List->next = nullptr;
+}
+
 void Dinamic() {
     NumberInformation firstNumberInformation, secondNumberInformation;
     ListNode* firstNumber = new ListNode, * secondNumber = new ListNode;
@@ -214,7 +189,7 @@ void Dinamic() {
     createListNumber(secondNumber, secondNumberInformation);
     secondNumber = secondNumber->next;
 
-    ListNode* result = differenceBetween(firstNumber, firstNumberInformation, secondNumber, secondNumberInformation);
+    ListNode* result = calculateNumber(firstNumber, firstNumberInformation, secondNumber, secondNumberInformation);
 
     while (result)
         std::cout << result->value, result = result->next;
