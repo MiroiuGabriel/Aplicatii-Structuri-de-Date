@@ -151,10 +151,16 @@ ListNode* differeneSign(ListNode* firstNumber, ListNode* secondNumber, bool isNe
                 Head->next->value = 10 + firstNumber->value - secondNumber->value, carry = true;
         }
         else {
-            if (firstNumber->value - carry > secondNumber->value)
-                Head->next->value = (firstNumber->value - carry) - secondNumber->value, carry = false;
-            else
-                Head->next->value = (firstNumber->value - carry) - secondNumber->value;
+
+            if (carry) {
+                if (firstNumber->value - 1 > secondNumber->value)
+                    Head->next->value = (firstNumber->value - carry) - secondNumber->value, carry = false;
+                else
+                    Head->next->value = 9 + firstNumber->value - secondNumber->value;
+            }
+            else {
+                Head->next->value = firstNumber->value - secondNumber->value;
+            }
         }
 
         Head = Head->next;
@@ -176,7 +182,7 @@ ListNode* differeneSign(ListNode* firstNumber, ListNode* secondNumber, bool isNe
 ListNode* differenceBetween(ListNode* firstNumber, NumberInformation firstNumberInformation, ListNode* secondNumber, NumberInformation secondNumberInformation) {
     ListNode* result = new ListNode;
 
-    if (firstNumberInformation.isPositive == false && !secondNumberInformation.isPositive == true)
+    if (firstNumberInformation.isPositive == false && secondNumberInformation.isPositive == true)
         result = minusCase(firstNumber, secondNumber, true);
     if (firstNumberInformation.isPositive == true && secondNumberInformation.isPositive == false)
         result = minusCase(firstNumber, secondNumber, false);
